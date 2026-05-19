@@ -274,6 +274,8 @@ class MongoDb(AgentCheck):
             tags.extend(self.internal_resource_tags)
         if isinstance(self.deployment_type, ReplicaSetDeployment):
             tags.extend(self.deployment_type.replset_tags)
+        if self._mongo_version:
+            tags.append(f'mongo_version:{self._mongo_version}')
         return tags
 
     def _get_service_check_tags(self):
